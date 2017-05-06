@@ -6470,12 +6470,12 @@ nv.models.legend = function() {
         });
 
         function setTextColor(d,i) {
-            if(vers != 'furious') return '#000';
+            if(vers != 'furious') return '#fff';
             if(expanded) {
-                return d.disengaged ? '#000' : '#fff';
+                return d.disengaged ? '#fff' : '#000';
             } else if (!expanded) {
                 if(!d.color) d.color = color(d,i);
-                return !!d.disabled ? d.color : '#fff';
+                return !!d.disabled ? d.color : '#000';
             }
         }
 
@@ -9220,6 +9220,10 @@ nv.models.multiBarHorizontal = function() {
                     .style('fill', function(d,i,j) { return d3.rgb(barColor(d,i)).darker(  disabled.map(function(d,i) { return i }).filter(function(d,i){ return !disabled[i]  })[j]   ).toString(); })
                     .style('stroke', function(d,i,j) { return d3.rgb(barColor(d,i)).darker(  disabled.map(function(d,i) { return i }).filter(function(d,i){ return !disabled[i]  })[j]   ).toString(); });
             }
+            console.log(`stacked=${stacked}`);
+            var colorScale = d3.scale.quantize()
+                 .domain([0,d3.max(data, (d) => d3.max(d.values, (d) => d.value ))])
+                 .range(['#eb220b', '#eb430b', '#ea660b', '#ea9b0b', '#ead10b', '#e1ea0b', '#cdf308','#a9e614', '#87dc0b', '#1cda0f']);
 
             if (stacked)
                 bars.watchTransition(renderWatch, 'multibarhorizontal: bars')
@@ -9244,6 +9248,9 @@ nv.models.multiBarHorizontal = function() {
                             + ')'
                     })
                     .select('rect')
+                .style('fill', function(d,i){
+                    return colorScale(d.value);
+                })
                     .attr('height', x.rangeBand() / data.length )
                     .attr('width', function(d,i) {
                         return Math.max(Math.abs(y(getY(d,i)) - y(0)),1) || 0
