@@ -9220,7 +9220,6 @@ nv.models.multiBarHorizontal = function() {
                     .style('fill', function(d,i,j) { return d3.rgb(barColor(d,i)).darker(  disabled.map(function(d,i) { return i }).filter(function(d,i){ return !disabled[i]  })[j]   ).toString(); })
                     .style('stroke', function(d,i,j) { return d3.rgb(barColor(d,i)).darker(  disabled.map(function(d,i) { return i }).filter(function(d,i){ return !disabled[i]  })[j]   ).toString(); });
             }
-            console.log(`stacked=${stacked}`);
             var colorScale = d3.scale.quantize()
                  .domain([0,d3.max(data, (d) => d3.max(d.values, (d) => d.value ))])
                  .range(['#eb220b', '#eb430b', '#ea660b', '#ea9b0b', '#ead10b', '#e1ea0b', '#cdf308','#a9e614', '#87dc0b', '#1cda0f']);
