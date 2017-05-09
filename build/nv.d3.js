@@ -8988,6 +8988,7 @@ nv.models.multiBarHorizontal = function() {
         , xRange
         , yRange
         , duration = 250
+    , maximum = null
         , dispatch = d3.dispatch('chartClick', 'elementClick', 'elementDblClick', 'elementMouseover', 'elementMouseout', 'elementMousemove', 'renderEnd')
         ;
 
@@ -9221,7 +9222,7 @@ nv.models.multiBarHorizontal = function() {
                     .style('stroke', function(d,i,j) { return d3.rgb(barColor(d,i)).darker(  disabled.map(function(d,i) { return i }).filter(function(d,i){ return !disabled[i]  })[j]   ).toString(); });
             }
             var colorScale = d3.scale.quantize()
-                .domain([0,d3.max(data, function(d){ return d3.max(d.values, function(d){ return d.value; }) })])
+                .domain([0,maximum !== null ? maximum : d3.max(data, function(d){ return d3.max(d.values, function(d){ return d.value; }) })])
                  .range(['#eb220b', '#eb430b', '#ea660b', '#ea9b0b', '#ead10b', '#e1ea0b', '#cdf308','#a9e614', '#87dc0b', '#1cda0f']);
 
             if (stacked)
@@ -9297,6 +9298,7 @@ nv.models.multiBarHorizontal = function() {
         valuePadding: {get: function(){return valuePadding;}, set: function(_){valuePadding=_;}},
         groupSpacing: {get: function(){return groupSpacing;}, set: function(_){groupSpacing=_;}},
         fillOpacity:  {get: function(){return fillOpacity;}, set: function(_){fillOpacity=_;}},
+        maximum: {  get: function(){return maximum;}, set: function(_){maximum=_; }},
 
         // options that require extra logic in the setter
         margin: {get: function(){return margin;}, set: function(_){
