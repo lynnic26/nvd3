@@ -9221,9 +9221,9 @@ nv.models.multiBarHorizontal = function() {
                     .style('fill', function(d,i,j) { return d3.rgb(barColor(d,i)).darker(  disabled.map(function(d,i) { return i }).filter(function(d,i){ return !disabled[i]  })[j]   ).toString(); })
                     .style('stroke', function(d,i,j) { return d3.rgb(barColor(d,i)).darker(  disabled.map(function(d,i) { return i }).filter(function(d,i){ return !disabled[i]  })[j]   ).toString(); });
             }
-            var colorScale = d3.scale.quantize()
-                .domain([0,maximum !== null ? maximum : d3.max(data, function(d){ return d3.max(d.values, function(d){ return d.value; }) })])
-                 .range(['#eb220b', '#eb430b', '#ea660b', '#ea9b0b', '#ead10b', '#e1ea0b', '#cdf308','#a9e614', '#87dc0b', '#1cda0f']);
+            //var colorScale = d3.scale.quantize()
+              //  .domain([0,maximum !== null ? maximum : d3.max(data, function(d){ return d3.max(d.values, function(d){ return d.value; }) })])
+                // .range(['#eb220b', '#eb430b', '#ea660b', '#ea9b0b', '#ead10b', '#e1ea0b', '#cdf308','#a9e614', '#87dc0b', '#1cda0f']);
 
             if (stacked)
                 bars.watchTransition(renderWatch, 'multibarhorizontal: bars')
@@ -9249,7 +9249,7 @@ nv.models.multiBarHorizontal = function() {
                     })
                     .select('rect')
                 .style('fill', function(d,i){
-                    return colorScale(d.value);
+                    //return colorScale(d.value);
                 })
                     .attr('height', x.rangeBand() / data.length )
                     .attr('width', function(d,i) {
